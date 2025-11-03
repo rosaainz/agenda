@@ -2,8 +2,6 @@ package equipo2.service;
 
 import equipo2.model.Contact;
 import equipo2.model.Agenda;
-import equipo2.model.Agenda;
-import equipo2.model.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,6 @@ import java.util.List;
 public class AgendaService {
     private final List<Contact> contacts = new ArrayList<>();
     private Agenda agenda;
-    Agenda agenda;
-    List<Contact> contacts = new ArrayList<>();
 
     public AgendaService(Agenda agenda) {
         this.agenda = agenda;
@@ -25,7 +21,7 @@ public class AgendaService {
      *   Antes de añadir el contacto, se debe comprobar que no exista ya en la agenda (contactos con el mismo nombre y apellido se consideran duplicados).
      *   No se puede añadir un contacto si el nombre o apellido están vacíos.
      * */
-    public void addContact(Agenda agenda, Contact contact){
+    public void addContact(Contact contact){
         if (contact == null){
             System.out.println("No se puede añadir un contacto nulo.");
         }
@@ -112,17 +108,13 @@ public class AgendaService {
 
 
 
-    public int espacioLibres() {
-        int libres = maxContactos - contactos.size();
+    public void espacioLibres() {
+        int libres = agenda.getMaxCapacity() - contacts.size();
         System.out.println("Espacios disponibles: " + libres);
-        return libres;
     }
 
-
-
-
        public boolean agendaLlena() {
-           if (contactos.size() >= maxContactos) {
+           if (contacts.size() >= agenda.getMaxCapacity()) {
            System.out.println("La agenda está llena. No se pueden agregar más contactos.");
            return true;
         }

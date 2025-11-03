@@ -8,9 +8,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Agenda agenda;
-
-
+        Agenda agenda = new Agenda();
+        AgendaService agendaService = new AgendaService(agenda);
 
         Scanner sc = new Scanner(System.in);
 
@@ -49,29 +48,27 @@ public class Main {
                     System.out.print("Teléfono: ");
                     String phone = sc.nextLine();
                     Contact contact = new Contact(name,lastName,phone);
-                    agendaService.addContact(agenda,contact);
+                    agendaService.addContact(contact);
                     break;
 
                 case 2:
                     System.out.print("Nombre a buscar: ");
                     String nombreBuscar = sc.nextLine();
-                    Contacto encontrado = agenda.buscarContacto(nombreBuscar);
-                    if (encontrado != null) {
-                        System.out.println("Contacto encontrado: " + encontrado);
-                    } else {
-                        System.out.println("No se encontró el contacto.");
-                    }
+                    agendaService.searchContact(nombreBuscar);
                     break;
+
                 case 3:
                     System.out.print("Nombre a eliminar: ");
                     String nombreEliminar = sc.nextLine();
-                    agenda.eliminarContacto(nombreEliminar);
+                    agendaService.deleteContacto(nombreEliminar);
                     break;
+
                 case 4:
-                    agenda.mostrarContactos();
+                    System.out.println(agendaService.getContacts());
                     break;
+
                 case 5:
-                    System.out.println("Espacios disponibles: " + agenda.espaciosDisponibles());
+                    agendaService.espacioLibres();
                     break;
 
                 case 0:
