@@ -8,29 +8,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        AgendaService agendaService = new AgendaService();
-        /*Contact contact1 = new Contact("Juan", "Perez", "5512345678");*/
-
-public class Main {
-    public static void main(String[] args) {
-        Agenda agenda = new Agenda(5);
-        AgendaService service = new AgendaService(agenda);
-
-        Contact contact = new Contact("Juan", "Perez", "5512345678");
-        Contact contact2 = new Contact("Rosa", "Perez", "5512345678");
-        Contact contact3 = new Contact("Luis", "Perez", "5512345678");
+        Agenda agenda;
 
 
-
-
-
-
-        /*
-        *  Menu de opciones
-        */
 
         Scanner sc = new Scanner(System.in);
-        Agenda agenda;
 
         System.out.println("Bienvenido a la Agenda Telefónica");
         System.out.print("¿Deseas indicar un tamaño máximo? (s/n): ");
@@ -68,6 +50,28 @@ public class Main {
                     String phone = sc.nextLine();
                     Contact contact = new Contact(name,lastName,phone);
                     agendaService.addContact(agenda,contact);
+                    break;
+
+                case 2:
+                    System.out.print("Nombre a buscar: ");
+                    String nombreBuscar = sc.nextLine();
+                    Contacto encontrado = agenda.buscarContacto(nombreBuscar);
+                    if (encontrado != null) {
+                        System.out.println("Contacto encontrado: " + encontrado);
+                    } else {
+                        System.out.println("No se encontró el contacto.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Nombre a eliminar: ");
+                    String nombreEliminar = sc.nextLine();
+                    agenda.eliminarContacto(nombreEliminar);
+                    break;
+                case 4:
+                    agenda.mostrarContactos();
+                    break;
+                case 5:
+                    System.out.println("Espacios disponibles: " + agenda.espaciosDisponibles());
                     break;
 
                 case 0:
