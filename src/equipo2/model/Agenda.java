@@ -8,7 +8,8 @@ public class Agenda {
     private int maxCapacity;
 
     public Agenda() {
-        this(10);
+       this.maxCapacity = 10;
+        this.contacts = new ArrayList<>();
     }
 
     public Agenda(int capacidadMaxima) {

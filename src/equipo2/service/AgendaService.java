@@ -5,6 +5,8 @@ import equipo2.model.Agenda;
 
 import javax.management.openmbean.TabularData;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AgendaService {
@@ -54,25 +56,22 @@ public class AgendaService {
            Muestra todos los contactos de la agenda en el siguiente formato: Nombre Apellido - Teléfono.
            Ordena los contactos alfabéticamente por nombre y apellido antes de mostrarlos.
     */
-    public List<Contact> getContacts(){
-        return agenda.getContacts();
+    public void listarContactos(){
+        List<Contact> contactos = agenda.getContacts();
+        if (contactos.isEmpty()) {
+            System.out.println("No hay contactos en la agenda.");
+            return;
+        }
+
+        Collections.sort(contactos, Comparator.comparing(Contact::getName, String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(Contact::getLastName, String.CASE_INSENSITIVE_ORDER));
+
+        System.out.println("=== Lista de contactos ===");
+        for (Contact c : contactos) {
+            System.out.println(c);
+        }
     }
 
-        // 4. Si todo esta bien, añadir contacto
-        contacts.add(contact);
-        System.out.println("Contacto añadido correctamente: " +
-                contact.getName() + " " + contact.getLastName());
-        return;
-    }
-
-    /*
-       listarContactos():
-           Muestra todos los contactos de la agenda en el siguiente formato: Nombre Apellido - Teléfono.
-           Ordena los contactos alfabéticamente por nombre y apellido antes de mostrarlos.
-    */
-    public List<Contact> getContacts(){
-        return contacts;
-    }
 
     /*
     *   existeContacto(Conctacto c):
@@ -80,7 +79,7 @@ public class AgendaService {
     *     Los contactos se consideran iguales si tienen el mismo nombre y apellido, sin importar el teléfono.
     * */
     public boolean existContact(Contact contact){
-        return getContacts().contains(contact);
+        return agenda.getContacts().contains(contact);
     }
 
 
@@ -144,25 +143,17 @@ public class AgendaService {
     }
 
 
-
     public void espacioLibres() {
         int libres = agenda.getMaxCapacity() - agenda.getContacts().size();
         System.out.println("Espacios disponibles: " + libres);
     }
 
-       public boolean agendaLlena() {
-           if (agenda.getContacts().size() >= agenda.getMaxCapacity()) {
-    public void espacioLibres() {
-        int libres = agenda.getMaxCapacity() - contacts.size();
-        System.out.println("Espacios disponibles: " + libres);
+   public boolean agendaLlena() {
+       if (contacts.size() >= agenda.getMaxCapacity()) {
+       System.out.println("La agenda está llena. No se pueden agregar más contactos.");
+       return true;
     }
-
-       public boolean agendaLlena() {
-           if (contacts.size() >= agenda.getMaxCapacity()) {
-           System.out.println("La agenda está llena. No se pueden agregar más contactos.");
-           return true;
-        }
-        return false;
+    return false;
     }
 
 }

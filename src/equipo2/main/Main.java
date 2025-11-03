@@ -8,15 +8,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Agenda agenda = new Agenda();
-        AgendaService agendaService = new AgendaService(agenda);
-
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Bienvenido a la Agenda Telefónica");
         System.out.print("¿Deseas indicar un tamaño máximo? (s/n): ");
         String respuesta = sc.nextLine();
 
+        Agenda agenda;
         if (respuesta.equalsIgnoreCase("s")) {
             System.out.print("Introduce el tamaño máximo de la agenda: ");
             int tam = sc.nextInt();
@@ -25,6 +23,8 @@ public class Main {
         } else {
             agenda = new Agenda(); // tamaño por defecto
         }
+
+        AgendaService agendaService = new AgendaService(agenda);
 
         int opcion;
         do {
@@ -43,19 +43,17 @@ public class Main {
             switch (opcion) {
                 case 1:
                     if (agendaService.agendaLlena()){
+                        System.out.println("La agenda está llena.");
                     }else {
                         System.out.print("Nombre: ");
                         String name = sc.nextLine();
-                        if (agendaService.existContact(name)){
-                        }else {
-                            System.out.print("Apellido: ");
-                            String lastName = sc.nextLine();
-                            System.out.print("Teléfono: ");
-                            String phone = sc.nextLine();
-                            Contact contact = new Contact(name, lastName, phone);
-                            agendaService.addContact(contact);
-                            System.out.println("");
-                        }
+                        System.out.print("Apellido: ");
+                        String lastName = sc.nextLine();
+                        System.out.print("Teléfono: ");
+                        String phone = sc.nextLine();
+
+                        Contact contact = new Contact(name, lastName, phone);
+                        agendaService.addContact(contact);
                     }
                     break;
 
@@ -72,7 +70,7 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println(agendaService.getContacts());
+                    agendaService.listarContactos();
                     break;
 
                 case 5:
@@ -101,6 +99,4 @@ public class Main {
 
         sc.close();
     }
-
-
 }
