@@ -99,13 +99,25 @@ public class AgendaService {
     }
 
 
-    /*
-        modificarTelefono(String nombre, String apellido, String nuevoTelefono):
-            Permite modificar el teléfono de un contacto existente.
-            Si el contacto no existe, debe mostrar un mensaje.
-     */
+    public void modificarTelefono(String nombre, String apellido, String nuevoTelefono) {
+        boolean encontrado = false;
 
+        for (Contact contact : agenda.getContacts()) {
+            if (contact.getName().equalsIgnoreCase(nombre) &&
+                    contact.getLastName().equalsIgnoreCase(apellido)) {
 
+                contact.setPhone(nuevoTelefono);
+                System.out.println("Teléfono actualizado para " + nombre + " " + apellido +
+                        ". Nuevo número: " + nuevoTelefono);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No se encontró el contacto: " + nombre + " " + apellido);
+        }
+    }
 
 
     public void espacioLibres() {
