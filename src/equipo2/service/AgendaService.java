@@ -27,12 +27,6 @@ public class AgendaService {
     public void addContact(Contact contact){
         if (contact == null){
             System.out.println("No se puede añadir un contacto nulo.");
-        }
-
-        // 1. Validar que nombre y apellido no estén vacíos
-        if (contact.getName() == null || contact.getName().isBlank() ||
-                contact.getLastName() == null || contact.getLastName().isBlank()) {
-            System.out.println("No se puede añadir un contacto con nombre o apellido vacío.");
             return;
         }
 
@@ -43,6 +37,20 @@ public class AgendaService {
             return;
         }
 
+        // 1. Validar que nombre y apellido no estén vacíos
+        if (contact.getName() == null || contact.getName().isBlank() ||
+                contact.getLastName() == null || contact.getLastName().isBlank()) {
+            System.out.println("No se puede añadir un contacto con nombre o apellido vacío.");
+            return;
+        }
+
+        for (Contact contacto : agenda.getContacts()) {
+            if (contact.getName().equalsIgnoreCase(contact.getName()) &&
+                    contacto.getLastName().equalsIgnoreCase(contact.getLastName())) {
+                System.out.println("Ya existe un contacto con ese nombre y apellido.");
+                return;
+            }
+        }
 
         // 4. Si todo esta bien, añadir contacto
         agenda.getContacts().add(contact);
