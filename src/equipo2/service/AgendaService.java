@@ -2,11 +2,22 @@ package equipo2.service;
 
 import equipo2.model.Contact;
 import equipo2.model.Agenda;
+import equipo2.model.Agenda;
+import equipo2.model.Contact;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AgendaService {
     private final List<Contact> contacts = new ArrayList<>();
+    private Agenda agenda;
+    Agenda agenda;
+    List<Contact> contacts = new ArrayList<>();
+
+    public AgendaService(Agenda agenda) {
+        this.agenda = agenda;
+    }
+
 
     /*
      * añadirContacto(Contacto c):
@@ -34,19 +45,23 @@ public class AgendaService {
         return;
     }
 
+    /*
+       listarContactos():
+           Muestra todos los contactos de la agenda en el siguiente formato: Nombre Apellido - Teléfono.
+           Ordena los contactos alfabéticamente por nombre y apellido antes de mostrarlos.
+    */
+    public List<Contact> getContacts(){
+        return contacts;
+    }
 
     /*
     *   existeContacto(Conctacto c):
     *     Verifica si un contacto ya existe en la agenda.
     *     Los contactos se consideran iguales si tienen el mismo nombre y apellido, sin importar el teléfono.
     * */
-
-
-    /*
-        listarContactos():
-            Muestra todos los contactos de la agenda en el siguiente formato: Nombre Apellido - Teléfono.
-            Ordena los contactos alfabéticamente por nombre y apellido antes de mostrarlos.
-     */
+    public boolean existContact(Contact contact){
+        return getContacts().contains(contact);
+    }
 
 
     /*
@@ -54,15 +69,38 @@ public class AgendaService {
             Permite buscar un contacto por nombre y apellido.
             Si el contacto existe, muestra el teléfono. Si no existe, muestra un mensaje indicando que no se ha encontrado.
      */
-
+    // buscaContacto
+    // .equalsIgnoreCase es para comparar dos textos sin distinguir entre mayusculas y minusculas
+    public void searchContact(String name) {
+        for (Contact contact : agenda.getContacts()) {
+            if (contact.getName().equalsIgnoreCase(name)) {
+                System.out.println("Contacto encontrado: " + contact);
+                return;
+            }
+        }
+        System.out.println("No se encontro el contacto");
+    }
 
     /*
         eliminarContacto(Contacto c):
             Elimina un contacto de la agenda. Muestra un mensaje indicando si la eliminación ha sido exitosa o no.
             Si se intenta eliminar un contacto que no existe, debe indicarse al usuario.
-
-
      */
+    // eliminarContacto
+    public void deleteContacto(String name) {
+        List<Contact> toRemove = new ArrayList<>();
+        for (Contact contact : agenda.getContacts()) {
+            if (contact.getName().equalsIgnoreCase(name)) {
+            toRemove.add(contact);
+        }
+    }
+        if (!toRemove.isEmpty()) {
+            agenda.getContacts().removeAll(toRemove);
+            System.out.println("Contacto eliminado con nombre: " + name);
+        } else {
+            System.out.println("No se encontro el contacto para eliminar");
+        }
+    }
 
 
     /*
@@ -73,16 +111,22 @@ public class AgendaService {
 
 
 
-    /*
-        agendaLlena():
-            Indica si la agenda está llena.
-            Muestra un mensaje indicando que no hay espacio disponible para nuevos contactos.
-     */
+
+    public int espacioLibres() {
+        int libres = maxContactos - contactos.size();
+        System.out.println("Espacios disponibles: " + libres);
+        return libres;
+    }
 
 
-    /*
-        espacioLibres():
-            Muestra cuántos contactos más se pueden agregar a la agenda.
-            Esto debe basarse en el tamaño máximo definido al crear la agenda.
-     */
+
+
+       public boolean agendaLlena() {
+           if (contactos.size() >= maxContactos) {
+           System.out.println("La agenda está llena. No se pueden agregar más contactos.");
+           return true;
+        }
+        return false;
+    }
+
 }
