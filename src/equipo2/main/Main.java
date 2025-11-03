@@ -34,6 +34,7 @@ public class Main {
             System.out.println("3. Eliminar contacto");
             System.out.println("4. Mostrar todos los contactos");
             System.out.println("5. Ver espacios disponibles");
+            System.out.println("6. Modificar teléfono de un contacto");
             System.out.println("0. Salir");
             System.out.print("Elige una opción: ");
             opcion = sc.nextInt();
@@ -69,6 +70,16 @@ public class Main {
 
                 case 5:
                     agendaService.espacioLibres();
+                    break;
+
+                case 6:
+                    System.out.print("Nombre del contacto: ");
+                    String nombreModificar = sc.nextLine();
+                    System.out.print("Apellido del contacto: ");
+                    String apellidoModificar = sc.nextLine();
+                    System.out.print("Nuevo teléfono: ");
+                    String nuevoTelefono = sc.nextLine();
+                    agendaService.modificarTelefono(nombreModificar, apellidoModificar, nuevoTelefono);
                     break;
 
                 case 0:
