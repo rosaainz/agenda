@@ -42,14 +42,21 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    System.out.print("Nombre: ");
-                    String name = sc.nextLine();
-                    System.out.print("Apellido: ");
-                    String lastName = sc.nextLine();
-                    System.out.print("Teléfono: ");
-                    String phone = sc.nextLine();
-                    Contact contact = new Contact(name,lastName,phone);
-                    agendaService.addContact(contact);
+                    if (agendaService.agendaLlena()){
+                    }else {
+                        System.out.print("Nombre: ");
+                        String name = sc.nextLine();
+                        if (agendaService.existContact(name)){
+                        }else {
+                            System.out.print("Apellido: ");
+                            String lastName = sc.nextLine();
+                            System.out.print("Teléfono: ");
+                            String phone = sc.nextLine();
+                            Contact contact = new Contact(name, lastName, phone);
+                            agendaService.addContact(contact);
+                            System.out.println("");
+                        }
+                    }
                     break;
 
                 case 2:
