@@ -1,6 +1,12 @@
 package equipo2.service;
 
+import equipo2.model.Contact;
+import equipo2.model.Agenda;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AgendaService {
+    private final List<Contact> contacts = new ArrayList<>();
 
     /*
      * añadirContacto(Contacto c):
@@ -8,6 +14,25 @@ public class AgendaService {
      *   Antes de añadir el contacto, se debe comprobar que no exista ya en la agenda (contactos con el mismo nombre y apellido se consideran duplicados).
      *   No se puede añadir un contacto si el nombre o apellido están vacíos.
      * */
+    public void addContact(Agenda agenda, Contact contact){
+        if (contact == null){
+            System.out.println("No se puede añadir un contacto nulo.");
+        }
+
+        // 1. Validar que nombre y apellido no estén vacíos
+        if (contact.getName() == null || contact.getName().isBlank() ||
+                contact.getLastName() == null || contact.getLastName().isBlank()) {
+            System.out.println("No se puede añadir un contacto con nombre o apellido vacío.");
+            return;
+        }
+
+
+        // 4. Si todo esta bien, añadir contacto
+        contacts.add(contact);
+        System.out.println("Contacto añadido correctamente: " +
+                contact.getName() + " " + contact.getLastName());
+        return;
+    }
 
 
     /*
