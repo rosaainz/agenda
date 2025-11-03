@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AgendaService {
+    private Agenda agenda;
     Agenda agenda;
     List<Contact> contacts = new ArrayList<>();
 
@@ -46,15 +47,38 @@ public class AgendaService {
             Permite buscar un contacto por nombre y apellido.
             Si el contacto existe, muestra el teléfono. Si no existe, muestra un mensaje indicando que no se ha encontrado.
      */
-
+    // buscaContacto
+    // .equalsIgnoreCase es para comparar dos textos sin distinguir entre mayusculas y minusculas
+    public void searchContact(String name) {
+        for (Contact contact : agenda.getContacts()) {
+            if (contact.getName().equalsIgnoreCase(name)) {
+                System.out.println("Contacto encontrado: " + contact);
+                return;
+            }
+        }
+        System.out.println("No se encontro el contacto");
+    }
 
     /*
         eliminarContacto(Contacto c):
             Elimina un contacto de la agenda. Muestra un mensaje indicando si la eliminación ha sido exitosa o no.
             Si se intenta eliminar un contacto que no existe, debe indicarse al usuario.
-
-
      */
+    // eliminarContacto
+    public void deleteContacto(String name) {
+        List<Contact> toRemove = new ArrayList<>();
+        for (Contact contact : agenda.getContacts()) {
+            if (contact.getName().equalsIgnoreCase(name)) {
+            toRemove.add(contact);
+        }
+    }
+        if (!toRemove.isEmpty()) {
+            agenda.getContacts().removeAll(toRemove);
+            System.out.println("Contacto eliminado con nombre: " + name);
+        } else {
+            System.out.println("No se encontro el contacto para eliminar");
+        }
+    }
 
 
     /*
