@@ -93,11 +93,11 @@ public class AgendaService {
     public void searchContact(String name) {
         for (Contact contact : agenda.getContacts()) {
             if (contact.getName().equalsIgnoreCase(name)) {
-                System.out.println("Contacto encontrado: " + contact);
+                System.out.println("Teléfono de " + name + ": " + contact.getPhone());
                 return;
             }
         }
-        System.out.println("No se encontro el contacto");
+        System.out.println("No se encontró el contacto.");
     }
 
     /*
