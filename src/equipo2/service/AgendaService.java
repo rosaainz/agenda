@@ -3,6 +3,7 @@ package equipo2.service;
 import equipo2.model.Contact;
 import equipo2.model.Agenda;
 
+import javax.management.openmbean.TabularData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,29 @@ public class AgendaService {
             return;
         }
 
+        // 1. Validar que nombre y apellido no estén vacíos
+        if (contact.getName() == null || contact.getName().isBlank() ||
+                contact.getLastName() == null || contact.getLastName().isBlank()) {
+            System.out.println("No se puede añadir un contacto con nombre o apellido vacío.");
+            return;
+        }
+
+
+        // 4. Si todo esta bien, añadir contacto
+        agenda.getContacts().add(contact);
+        System.out.println("Contacto añadido correctamente: " +
+                contact.getName() + " " + contact.getLastName());
+        return;
+    }
+
+    /*
+       listarContactos():
+           Muestra todos los contactos de la agenda en el siguiente formato: Nombre Apellido - Teléfono.
+           Ordena los contactos alfabéticamente por nombre y apellido antes de mostrarlos.
+    */
+    public List<Contact> getContacts(){
+        return agenda.getContacts();
+    }
 
         // 4. Si todo esta bien, añadir contacto
         contacts.add(contact);
@@ -120,6 +144,14 @@ public class AgendaService {
     }
 
 
+
+    public void espacioLibres() {
+        int libres = agenda.getMaxCapacity() - agenda.getContacts().size();
+        System.out.println("Espacios disponibles: " + libres);
+    }
+
+       public boolean agendaLlena() {
+           if (agenda.getContacts().size() >= agenda.getMaxCapacity()) {
     public void espacioLibres() {
         int libres = agenda.getMaxCapacity() - contacts.size();
         System.out.println("Espacios disponibles: " + libres);
