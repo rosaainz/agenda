@@ -89,16 +89,22 @@ public class AgendaService {
 
 
 
-    /*
-        agendaLlena():
-            Indica si la agenda está llena.
-            Muestra un mensaje indicando que no hay espacio disponible para nuevos contactos.
-     */
+
+    public int espacioLibres() {
+        int libres = maxContactos - contactos.size();
+        System.out.println("Espacios disponibles: " + libres);
+        return libres;
+    }
 
 
-    /*
-        espacioLibres():
-            Muestra cuántos contactos más se pueden agregar a la agenda.
-            Esto debe basarse en el tamaño máximo definido al crear la agenda.
-     */
+
+
+       public boolean agendaLlena() {
+           if (contactos.size() >= maxContactos) {
+           System.out.println("La agenda está llena. No se pueden agregar más contactos.");
+           return true;
+        }
+        return false;
+    }
+
 }
