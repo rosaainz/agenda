@@ -1,6 +1,19 @@
 package equipo2.service;
 
+import equipo2.model.Agenda;
+import equipo2.model.Contact;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AgendaService {
+    Agenda agenda;
+    List<Contact> contacts = new ArrayList<>();
+
+    public AgendaService(Agenda agenda) {
+        this.agenda = agenda;
+    }
+
 
     /*
      * añadirContacto(Contacto c):
@@ -9,19 +22,23 @@ public class AgendaService {
      *   No se puede añadir un contacto si el nombre o apellido están vacíos.
      * */
 
+    /*
+       listarContactos():
+           Muestra todos los contactos de la agenda en el siguiente formato: Nombre Apellido - Teléfono.
+           Ordena los contactos alfabéticamente por nombre y apellido antes de mostrarlos.
+    */
+    public List<Contact> getContacts(){
+        return contacts;
+    }
 
     /*
     *   existeContacto(Conctacto c):
     *     Verifica si un contacto ya existe en la agenda.
     *     Los contactos se consideran iguales si tienen el mismo nombre y apellido, sin importar el teléfono.
     * */
-
-
-    /*
-        listarContactos():
-            Muestra todos los contactos de la agenda en el siguiente formato: Nombre Apellido - Teléfono.
-            Ordena los contactos alfabéticamente por nombre y apellido antes de mostrarlos.
-     */
+    public boolean existContact(Contact contact){
+        return getContacts().contains(contact);
+    }
 
 
     /*
